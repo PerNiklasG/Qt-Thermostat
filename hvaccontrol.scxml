@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" binding="early" xmlns:qt="http://www.qt.io/2015/02/scxml-ext" name="hvaccontrol" qt:editorversion="12.0.2">
+    <state id="FanOn">
+        <qt:editorinfo scenegeometry="1392.41;63.51;1332.41;13.51;825.49;909.11" geometry="1392.41;63.51;-60;-50;825.49;909.11"/>
+        <state id="Wait">
+            <qt:editorinfo scenegeometry="1946.92;432.19;1886.92;382.19;188.94;100" geometry="554.51;368.68;-60;-50;188.94;100"/>
+            <transition type="external" event="DoneWaiting" target="Idle">
+                <qt:editorinfo movePoint="0;8.55"/>
+            </transition>
+            <onentry>
+                <send event="DoneWaiting" delay="1s"/>
+            </onentry>
+        </state>
+        <state id="Cooling">
+            <qt:editorinfo scenegeometry="1745.16;747.72;1685.16;697.72;120;100" geometry="352.75;684.21;-60;-50;120;100"/>
+            <transition type="external" event="TargetReached" target="Wait">
+                <qt:editorinfo movePoint="-57.82;24.35" endTargetFactors="48.39;70.53"/>
+            </transition>
+        </state>
+        <state id="Heating">
+            <qt:editorinfo scenegeometry="1662.24;194.58;1602.24;144.58;120;100" geometry="269.83;131.07;-60;-50;120;100"/>
+            <transition type="external" event="TargetReached" target="Wait"/>
+        </state>
+    </state>
+    <state id="FanOff">
+        <qt:editorinfo scenegeometry="664.44;202.76;604.44;152.76;451.08;564.48" geometry="664.44;202.76;-60;-50;451.08;564.48"/>
+        <state id="Idle">
+            <qt:editorinfo scenegeometry="489.21;321.04;429.21;271.04;120;100" geometry="165.54;174.47;-60;-50;120;100"/>
+            <transition type="external" event="TooCold" target="Heating">
+                <qt:editorinfo movePoint="-12.14;1.24" endTargetFactors="16.43;45.63"/>
+            </transition>
+            <transition type="external" event="TooHot" target="Cooling">
+                <qt:editorinfo movePoint="10.14;-6.09"/>
+            </transition>
+        </state>
+    </state>
+</scxml>
